@@ -12,17 +12,19 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main>
+      <main className="min-h-screen">
         <HeroSection />
         <TrustSection />
-        <section id="packages">
+        <section id="packages" className="scroll-mt-20">
           <SafariPackages />
         </section>
         <CustomSafariCTA />
-        <section id="sustainability">
+        <section id="sustainability" className="scroll-mt-20">
           <SustainabilitySection />
         </section>
-        <InquirySection />
+        <section id="inquiry" className="scroll-mt-20">
+          <InquirySection />
+        </section>
       </main>
       <Footer />
       <StickyCTAs />

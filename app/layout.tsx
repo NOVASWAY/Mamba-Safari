@@ -20,13 +20,15 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
     shortcut: '/favicon.ico',
   },
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export const viewport: Viewport = {
-  themeColor: '#2d5a3d',
+  themeColor: '#f59e0b',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 }
 
 export default function RootLayout({
@@ -35,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
         <Analytics />
       </body>

@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { PhotoGallery } from "@/components/photo-gallery"
 import { Footer } from "@/components/footer"
+import { StickyCTAs } from "@/components/sticky-ctas"
 
 export const metadata = {
   title: 'Safari Moments Gallery | Mamba World Kenya Safaris',
@@ -11,10 +12,11 @@ export default function GalleryPage() {
   return (
     <>
       <Header />
-      <main className="pt-16 md:pt-20">
+      <main className="min-h-screen pt-16 md:pt-20">
         <PhotoGallery />
       </main>
       <Footer />
+      <StickyCTAs />
     </>
   )
 }

@@ -4,7 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, X, MessageCircle } from "lucide-react"
+import { Menu, X, MessageCircle, Phone } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const navLinks = [
   { label: "Safaris", href: "#packages" },
@@ -16,43 +17,105 @@ const navLinks = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
   const whatsappLink = "https://wa.me/254115882901?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20safari"
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
+      
+      // Detect active section for smooth navigation indicator
+      const sections = navLinks.map(link => link.href.replace('#', '')).filter(href => !href.startsWith('/'))
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 120 && rect.bottom >= 120) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
     }
+    
+    // Handle hash navigation when arriving from another page
+    if (typeof window !== 'undefined' && window.location.hash) {
+      setTimeout(() => {
+        const hash = window.location.hash
+        const element = document.querySelector(hash)
+        if (element) {
+          const offset = 80
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - offset
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          })
+        }
+      }, 100)
+    }
+    
+    handleScroll() // Call on mount
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, e?: React.MouseEvent) => {
     setIsMobileMenuOpen(false)
+    
     if (href.startsWith("/")) {
-      // External route navigation
-      window.location.href = href
+      // Page navigation - let Next.js Link handle it naturally
       return
     }
+    
     // Anchor link navigation
+    e?.preventDefault()
+    
+    // If not on home page, navigate to home first, then scroll
+    if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+      // Navigate to home page with hash
+      window.location.href = `/${href}`
+      return
+    }
+    
+    // Already on home page, just scroll
     const element = document.querySelector(href)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      const offset = 80 // Header height offset
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      })
     }
+  }
+
+  const isLinkActive = (href: string) => {
+    if (href.startsWith('/')) {
+      return typeof window !== 'undefined' && window.location.pathname === href
+    }
+    return activeSection === href.replace('#', '')
   }
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
         isScrolled
-          ? "bg-background/95 backdrop-blur-sm shadow-sm"
-          : "bg-transparent"
-      }`}
+          ? "bg-white/98 dark:bg-stone-950/98 backdrop-blur-lg shadow-lg border-b border-amber-200/20 dark:border-amber-900/20"
+          : "bg-white/95 dark:bg-stone-950/95 backdrop-blur-md shadow-md border-b border-amber-200/10 dark:border-amber-900/10"
+      )}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="relative h-10 md:h-12 w-10 md:w-12 flex-shrink-0">
+          {/* Logo with smooth animation */}
+          <Link 
+            href="/" 
+            className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105"
+          >
+            <div className="relative h-10 md:h-12 w-10 md:w-12 flex-shrink-0 transition-all duration-300 group-hover:rotate-6">
               <Image 
                 src="/images/logo.jpg" 
                 alt="Mamba World Kenya Safaris" 
@@ -64,55 +127,101 @@ export function Header() {
               />
             </div>
             <span
-              className={`font-serif text-lg md:text-xl font-semibold transition-colors ${
-                isScrolled ? "text-foreground" : "text-white"
-              }`}
+              className={cn(
+                "font-serif text-lg md:text-xl font-semibold transition-colors duration-300",
+                "text-amber-700 dark:text-amber-400"
+              )}
             >
               Mamba World
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation with smooth indicators */}
+          <nav className="hidden md:flex items-center gap-2">
+            {/* Always show Home link */}
+            <Link
+              href="/"
+              className={cn(
+                "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group",
+                isScrolled
+                  ? "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                  : "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30",
+                typeof window !== 'undefined' && window.location.pathname === '/' && "text-amber-700 dark:text-amber-400"
+              )}
+            >
+              Home
+              <span 
+                className={cn(
+                  "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
+                  typeof window !== 'undefined' && window.location.pathname === '/' ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
+                )}
+              />
+            </Link>
+            
             {navLinks.map((link) => {
+              const isActive = isLinkActive(link.href)
+              
               if (link.href.startsWith("/")) {
                 return (
                   <Link
                     key={link.label}
                     href={link.href}
-                    className={`text-sm font-medium transition-colors hover:opacity-80 ${
-                      isScrolled ? "text-foreground" : "text-white"
-                    }`}
+                    className={cn(
+                      "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group",
+                      isScrolled
+                        ? "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                        : "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30",
+                      isActive && "text-amber-700 dark:text-amber-400"
+                    )}
                   >
                     {link.label}
+                    <span 
+                      className={cn(
+                        "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
+                        isActive ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
+                      )}
+                    />
                   </Link>
                 )
               }
+              
               return (
-                <button
+                <a
                   key={link.label}
-                  onClick={() => handleNavClick(link.href)}
-                  className={`text-sm font-medium transition-colors hover:opacity-80 ${
-                    isScrolled ? "text-foreground" : "text-white"
-                  }`}
+                  href={typeof window !== 'undefined' && window.location.pathname !== '/' ? `/${link.href}` : link.href}
+                  onClick={(e) => handleNavClick(link.href, e)}
+                  className={cn(
+                    "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
+                    isScrolled
+                      ? "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                      : "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30",
+                    isActive && "text-amber-700 dark:text-amber-400"
+                  )}
                 >
                   {link.label}
-                </button>
+                  <span 
+                    className={cn(
+                      "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
+                      isActive ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
+                    )}
+                  />
+                </a>
               )
             })}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA with smooth animations */}
           <div className="hidden md:flex items-center gap-3">
             <Button
               asChild
               variant="ghost"
               size="sm"
-              className={`${
+              className={cn(
+                "transition-all duration-300 hover:scale-105",
                 isScrolled
-                  ? "text-foreground hover:bg-secondary"
+                  ? "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                   : "text-white hover:bg-white/10"
-              }`}
+              )}
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-4 w-4" />
@@ -122,70 +231,125 @@ export function Header() {
             <Button
               size="sm"
               onClick={() => handleNavClick("#inquiry")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               Plan My Safari
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button with smooth icon transition */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 ${isScrolled ? "text-foreground" : "text-white"}`}
+            className={cn(
+              "md:hidden p-2 rounded-lg transition-all duration-300",
+              isScrolled 
+                ? "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30" 
+                : "text-white hover:bg-white/10"
+            )}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <div className="relative w-6 h-6">
+              <Menu className={cn(
+                "absolute inset-0 w-6 h-6 transition-all duration-300",
+                isMobileMenuOpen ? "rotate-90 opacity-0 scale-0" : "rotate-0 opacity-100 scale-100"
+              )} />
+              <X className={cn(
+                "absolute inset-0 w-6 h-6 transition-all duration-300",
+                isMobileMenuOpen ? "rotate-0 opacity-100 scale-100" : "rotate-90 opacity-0 scale-0"
+              )} />
+            </div>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-background border-t border-border">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
-            {navLinks.map((link) => {
-              if (link.href.startsWith("/")) {
+      {/* Mobile Menu with smooth slide animation */}
+      <div
+        className={cn(
+          "md:hidden overflow-hidden transition-all duration-500 ease-in-out",
+          isMobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+        )}
+      >
+        <nav className="bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl border-t border-amber-200/20 dark:border-amber-900/20 shadow-2xl">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex flex-col gap-2">
+              {/* Always show Home link in mobile menu */}
+              <Link
+                href="/"
+                className={cn(
+                  "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2",
+                  typeof window !== 'undefined' && window.location.pathname === '/'
+                    ? "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/50 dark:to-orange-950/50 text-amber-700 dark:text-amber-400 shadow-md"
+                    : "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                )}
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{ animationDelay: '0ms' }}
+              >
+                Home
+              </Link>
+              
+              {navLinks.map((link, index) => {
+                const isActive = isLinkActive(link.href)
+                
+                if (link.href.startsWith("/")) {
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2",
+                        isActive
+                          ? "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/50 dark:to-orange-950/50 text-amber-700 dark:text-amber-400 shadow-md"
+                          : "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                      )}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      style={{ animationDelay: `${(index + 1) * 50}ms` }}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                }
+                
                 return (
-                  <Link
+                  <a
                     key={link.label}
-                    href={link.href}
-                    className="text-foreground text-left py-3 px-4 rounded-md hover:bg-secondary transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    href={typeof window !== 'undefined' && window.location.pathname !== '/' ? `/${link.href}` : link.href}
+                    onClick={(e) => handleNavClick(link.href, e)}
+                    className={cn(
+                      "px-4 py-3 rounded-lg text-base font-medium text-left transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
+                      isActive
+                        ? "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/50 dark:to-orange-950/50 text-amber-700 dark:text-amber-400 shadow-md"
+                        : "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                    )}
+                    style={{ animationDelay: `${(index + 1) * 50}ms` }}
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 )
-              }
-              return (
-                <button
-                  key={link.label}
-                  onClick={() => handleNavClick(link.href)}
-                  className="text-foreground text-left py-3 px-4 rounded-md hover:bg-secondary transition-colors"
-                >
-                  {link.label}
-                </button>
-              )
-            })}
-            <hr className="my-2 border-border" />
-            <Button
-              asChild
-              variant="outline"
-              className="justify-start bg-transparent"
-            >
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-4 w-4" />
-                Chat on WhatsApp
-              </a>
-            </Button>
-            <Button
-              onClick={() => handleNavClick("#inquiry")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              Plan My Safari
-            </Button>
-          </nav>
-        </div>
-      )}
+              })}
+            </div>
+            
+            {/* Mobile Quick Actions */}
+            <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-amber-200/30 dark:border-amber-900/30">
+              <Button
+                asChild
+                variant="outline"
+                className="justify-center bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-all duration-300 hover:scale-105"
+              >
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Chat on WhatsApp
+                </a>
+              </Button>
+              <Button
+                onClick={() => handleNavClick("#inquiry")}
+                className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 py-6 text-base hover:scale-105"
+              >
+                Plan My Safari Adventure
+              </Button>
+            </div>
+          </div>
+        </nav>
+      </div>
     </header>
   )
 }

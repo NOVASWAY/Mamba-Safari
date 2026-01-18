@@ -42,32 +42,39 @@ export function SafariPackages() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-secondary/30">
-      <div className="container mx-auto px-4">
-        <h2 className="font-serif text-3xl md:text-4xl text-center text-foreground mb-4">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-amber-50/30 via-orange-50/20 to-amber-50/30 dark:from-stone-950 dark:via-amber-950/10 dark:to-stone-950 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-64 h-64 bg-amber-200/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-200/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <h2 className="font-serif text-3xl md:text-4xl text-center text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-orange-600 to-amber-700 dark:from-amber-400 dark:via-orange-300 dark:to-amber-400 mb-4 font-bold animate-fade-in-up">
           Popular Safari Packages
         </h2>
-        <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
+        <div className="w-24 h-1 mx-auto bg-gradient-to-r from-transparent via-amber-500 to-transparent rounded-full mb-6 animate-fade-in"></div>
+        <p className="text-stone-700 dark:text-stone-300 text-center max-w-2xl mx-auto mb-12 animate-fade-in-up delay-200">
           Start with our most-loved itineraries, then customize to make it yours.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg) => (
+          {packages.map((pkg, index) => (
             <div
               key={pkg.title}
-              className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-xl transition-all group"
+              className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-amber-200/50 dark:border-amber-800/30 hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 group hover:-translate-y-2 animate-fade-in-up"
+              style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="relative h-56 overflow-hidden">
                 <Image
                   src={pkg.image || "/placeholder.svg"}
                   alt={pkg.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-110 group-hover:rotate-2 transition-all duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
               <div className="p-6">
-                <h3 className="font-serif text-xl text-foreground mb-3">{pkg.title}</h3>
+                <h3 className="font-serif text-xl text-stone-900 dark:text-white mb-3 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">{pkg.title}</h3>
                 
                 <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
@@ -91,7 +98,7 @@ export function SafariPackages() {
 
                 <Button
                   onClick={() => scrollToInquiry(pkg.title)}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                   Request This Safari
                 </Button>
