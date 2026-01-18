@@ -1,0 +1,49 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- White circle background -->
+  <circle cx="100" cy="100" r="95" fill="white" stroke="#2d5a3d" stroke-width="2"/>
+  
+  <!-- Globe (green) -->
+  <circle cx="100" cy="85" r="35" fill="#2d5a3d"/>
+  <!-- Continent shapes on globe -->
+  <path d="M 85 75 Q 90 70 95 75 Q 100 80 105 75 Q 110 70 115 75 Q 115 85 110 90 Q 105 95 100 90 Q 95 95 90 90 Q 85 85 85 75 Z" fill="#1a3d28"/>
+  <path d="M 100 75 Q 105 70 110 75 Q 115 80 110 85 Q 105 90 100 85 Q 95 90 90 85 Q 85 80 90 75 Q 95 70 100 75 Z" fill="#1a3d28"/>
+  
+  <!-- Green dots -->
+  <circle cx="75" cy="80" r="2" fill="#2d5a3d"/>
+  <circle cx="80" cy="75" r="1.5" fill="#2d5a3d"/>
+  <circle cx="70" cy="85" r="1.5" fill="#2d5a3d"/>
+  
+  <!-- Acacia trees (left side) -->
+  <path d="M 50 120 L 50 160 M 45 140 L 55 140 M 48 150 L 52 150" stroke="black" stroke-width="2" fill="none"/>
+  <path d="M 60 115 L 60 155 M 55 135 L 65 135 M 58 145 L 62 145" stroke="black" stroke-width="2" fill="none"/>
+  <path d="M 70 125 L 70 165 M 65 145 L 75 145 M 68 155 L 72 155" stroke="black" stroke-width="2" fill="none"/>
+  
+  <!-- Acacia trees (right side) -->
+  <path d="M 130 120 L 130 160 M 125 140 L 135 140 M 128 150 L 132 150" stroke="black" stroke-width="2" fill="none"/>
+  <path d="M 140 115 L 140 155 M 135 135 L 145 135 M 138 145 L 142 145" stroke="black" stroke-width="2" fill="none"/>
+  <path d="M 150 125 L 150 165 M 145 145 L 155 145 M 148 155 L 152 155" stroke="black" stroke-width="2" fill="none"/>
+  
+  <!-- Mamba snake (S-shaped, wrapping around globe) -->
+  <path d="M 75 60 Q 70 70 75 80 Q 80 90 85 95 Q 90 100 95 105 Q 100 110 105 105 Q 110 100 115 95 Q 120 90 125 80 Q 130 70 125 60" 
+        stroke="black" stroke-width="4" fill="none" stroke-linecap="round"/>
+  
+  <!-- Snake body segments (white stripes) -->
+  <line x1="78" y1="70" x2="82" y2="70" stroke="white" stroke-width="2"/>
+  <line x1="88" y1="85" x2="92" y2="85" stroke="white" stroke-width="2"/>
+  <line x1="98" y1="100" x2="102" y2="100" stroke="white" stroke-width="2"/>
+  <line x1="108" y1="90" x2="112" y2="90" stroke="white" stroke-width="2"/>
+  <line x1="118" y1="75" x2="122" y2="75" stroke="white" stroke-width="2"/>
+  
+  <!-- Snake head -->
+  <ellipse cx="125" cy="60" rx="6" ry="5" fill="black"/>
+  <path d="M 130 60 L 132 58 M 130 60 L 132 62" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Text: MAMBA WORLD -->
+  <text x="100" y="175" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="black">MAMBA WORLD</text>
+  
+  <!-- Text: KENYA SAFARIS with green lines -->
+  <line x1="60" y1="185" x2="75" y2="185" stroke="#2d5a3d" stroke-width="1.5"/>
+  <text x="100" y="190" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="black">KENYA SAFARIS</text>
+  <line x1="125" y1="185" x2="140" y2="185" stroke="#2d5a3d" stroke-width="1.5"/>
+</svg>
+
