@@ -133,8 +133,9 @@ export function PhotoGallery() {
                       fill
                       className="object-contain p-1 md:p-2 group-hover:scale-105 transition-transform duration-700 ease-out"
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={90}
-                      priority={index < 2}
+                      quality={75}
+                      loading={index < 2 ? "eager" : "lazy"}
+                      priority={index === 0}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md md:rounded-lg" />
                     <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 lg:p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
@@ -198,7 +199,7 @@ export function PhotoGallery() {
                 className="object-contain p-4"
                 priority
                 sizes="100vw"
-                quality={95}
+                quality={85}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-6 text-center rounded-b-lg">
                 <p className="text-white text-lg font-medium mb-1 drop-shadow-lg">

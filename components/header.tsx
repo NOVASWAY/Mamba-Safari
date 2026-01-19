@@ -123,7 +123,7 @@ export function Header() {
                 fill
                 className="object-contain rounded"
                 priority
-                quality={95}
+                quality={80}
                 sizes="(max-width: 768px) 40px, 48px"
               />
             </div>

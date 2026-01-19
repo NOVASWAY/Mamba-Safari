@@ -4,8 +4,18 @@ import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
-const sourceSans = Source_Sans_3({ subsets: ["latin"], variable: "--font-sans" });
+const playfair = Playfair_Display({ 
+  subsets: ["latin"], 
+  variable: "--font-serif",
+  display: 'swap',
+  preload: true,
+});
+const sourceSans = Source_Sans_3({ 
+  subsets: ["latin"], 
+  variable: "--font-sans",
+  display: 'swap',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: 'Mamba World Kenya Safaris | Authentic Eco-Safaris in Kenya',
@@ -20,7 +30,10 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
     shortcut: '/favicon.ico',
   },
-  generator: 'v0.app'
+  generator: 'v0.app',
+  other: {
+    'dns-prefetch': 'https://fonts.googleapis.com https://fonts.gstatic.com',
+  },
 }
 
 export const viewport: Viewport = {

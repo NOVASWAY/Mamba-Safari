@@ -69,6 +69,9 @@ export function SafariPackages() {
                   alt={pkg.title}
                   fill
                   className="object-cover group-hover:scale-110 group-hover:rotate-2 transition-all duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={75}
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
