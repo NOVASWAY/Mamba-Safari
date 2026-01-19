@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X, MessageCircle, Phone } from "lucide-react"
@@ -16,10 +17,12 @@ const navLinks = [
 ]
 
 export function Header() {
+  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const whatsappLink = "https://wa.me/254115882901?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20safari"
+  const isHomePage = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +76,7 @@ export function Header() {
     e?.preventDefault()
     
     // If not on home page, navigate to home first, then scroll
-    if (typeof window !== 'undefined' && window.location.pathname !== '/') {
+    if (pathname !== '/') {
       // Navigate to home page with hash
       window.location.href = `/${href}`
       return
@@ -95,7 +98,7 @@ export function Header() {
 
   const isLinkActive = (href: string) => {
     if (href.startsWith('/')) {
-      return typeof window !== 'undefined' && window.location.pathname === href
+      return pathname === href
     }
     return activeSection === href.replace('#', '')
   }
@@ -147,14 +150,14 @@ export function Header() {
                 isScrolled
                   ? "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                   : "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30",
-                typeof window !== 'undefined' && window.location.pathname === '/' && "text-amber-700 dark:text-amber-400"
+                isHomePage && "text-amber-700 dark:text-amber-400"
               )}
             >
               Home
               <span 
                 className={cn(
                   "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
-                  typeof window !== 'undefined' && window.location.pathname === '/' ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
+                  isHomePage ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                 )}
               />
             </Link>
@@ -189,7 +192,7 @@ export function Header() {
               return (
                 <a
                   key={link.label}
-                  href={typeof window !== 'undefined' && window.location.pathname !== '/' ? `/${link.href}` : link.href}
+                  href={pathname !== '/' ? `/${link.href}` : link.href}
                   onClick={(e) => handleNavClick(link.href, e)}
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
@@ -278,7 +281,7 @@ export function Header() {
                 href="/"
                 className={cn(
                   "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2",
-                  typeof window !== 'undefined' && window.location.pathname === '/'
+                  isHomePage
                     ? "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/50 dark:to-orange-950/50 text-amber-700 dark:text-amber-400 shadow-md"
                     : "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                 )}
@@ -313,7 +316,7 @@ export function Header() {
                 return (
                   <a
                     key={link.label}
-                    href={typeof window !== 'undefined' && window.location.pathname !== '/' ? `/${link.href}` : link.href}
+                    href={pathname !== '/' ? `/${link.href}` : link.href}
                     onClick={(e) => handleNavClick(link.href, e)}
                     className={cn(
                       "px-4 py-3 rounded-lg text-base font-medium text-left transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
