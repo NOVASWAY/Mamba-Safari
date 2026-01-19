@@ -372,3 +372,97 @@ button, a, input, textarea, select {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #d97706, #c2410c);
 }
+
+/* Chatbase Widget Customization - Amber/Orange Theme */
+#chatbase-widget,
+[data-chatbase-widget],
+.chatbase-widget,
+iframe[src*="chatbase"] {
+  /* Widget container styling */
+}
+
+/* Chatbase button/bubble colors */
+#chatbase-bubble,
+[data-chatbase-bubble],
+.chatbase-bubble {
+  background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4) !important;
+}
+
+#chatbase-bubble:hover,
+[data-chatbase-bubble]:hover,
+.chatbase-bubble:hover {
+  background: linear-gradient(135deg, #d97706, #c2410c) !important;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5) !important;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Chatbase widget header/header colors */
+#chatbase-widget-header,
+[data-chatbase-header],
+.chatbase-header {
+  background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+  color: white !important;
+}
+
+/* Chatbase input and send button */
+#chatbase-input,
+[data-chatbase-input],
+.chatbase-input {
+  border-color: #f59e0b !important;
+}
+
+#chatbase-input:focus,
+[data-chatbase-input]:focus,
+.chatbase-input:focus {
+  border-color: #ea580c !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1) !important;
+}
+
+#chatbase-send-button,
+[data-chatbase-send],
+.chatbase-send-button,
+button[aria-label*="send"],
+button[aria-label*="Send"] {
+  background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+  color: white !important;
+}
+
+#chatbase-send-button:hover,
+[data-chatbase-send]:hover,
+.chatbase-send-button:hover,
+button[aria-label*="send"]:hover,
+button[aria-label*="Send"]:hover {
+  background: linear-gradient(135deg, #d97706, #c2410c) !important;
+}
+
+/* Chatbase message bubbles - user messages */
+.chatbase-message-user,
+[data-chatbase-message-user],
+.chatbase-user-message {
+  background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+  color: white !important;
+}
+
+/* Chatbase message bubbles - bot messages */
+.chatbase-message-bot,
+[data-chatbase-message-bot],
+.chatbase-bot-message {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  border-left: 3px solid #f59e0b !important;
+}
+
+/* Chatbase links */
+.chatbase-link,
+[data-chatbase-link],
+a[href*="chatbase"] {
+  color: #f59e0b !important;
+}
+
+.chatbase-link:hover,
+[data-chatbase-link]:hover,
+a[href*="chatbase"]:hover {
+  color: #d97706 !important;
+}
