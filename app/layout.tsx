@@ -17,18 +17,21 @@ const sourceSans = Source_Sans_3({
   preload: true,
 });
 
+// Base path for GitHub Pages
+const BASE_PATH = '/Mamba-Safari'
+
 export const metadata: Metadata = {
   title: 'Mamba World Kenya Safaris | Authentic Eco-Safaris in Kenya',
   description: 'Experience authentic eco-safaris in Kenya with local experts. Responsibly crafted wildlife adventures in Maasai Mara, Amboseli, and beyond. Book your unforgettable safari today.',
   keywords: ['Kenya safari', 'eco safari', 'Maasai Mara', 'Amboseli', 'wildlife safari', 'Kenya tours', 'African safari'],
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
-      { url: '/apple-icon.png', type: 'image/png', sizes: '180x180' },
+      { url: `${BASE_PATH}/favicon.ico`, sizes: 'any' },
+      { url: `${BASE_PATH}/icon.png`, type: 'image/png', sizes: '32x32' },
+      { url: `${BASE_PATH}/apple-icon.png`, type: 'image/png', sizes: '180x180' },
     ],
-    apple: '/apple-icon.png',
-    shortcut: '/favicon.ico',
+    apple: `${BASE_PATH}/apple-icon.png`,
+    shortcut: `${BASE_PATH}/favicon.ico`,
   },
   generator: 'v0.app',
   other: {
