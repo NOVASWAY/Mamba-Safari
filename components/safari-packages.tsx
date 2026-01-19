@@ -4,24 +4,27 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Clock, Users } from "lucide-react"
 
+// Base path for GitHub Pages
+const BASE_PATH = '/Mamba-Safari'
+
 const packages = [
   {
     title: "Classic Maasai Mara Safari",
-    image: "/images/maasai-mara.jpg",
+    image: `${BASE_PATH}/images/maasai-mara.jpg`,
     duration: "4-5 Days",
     idealFor: "First-time visitors, Wildlife enthusiasts",
     highlights: ["Big Five game drives", "Maasai village visit", "Sunrise balloon option"],
   },
   {
     title: "Amboseli & Kilimanjaro Views",
-    image: "/images/amboseli.jpg",
+    image: `${BASE_PATH}/images/amboseli.jpg`,
     duration: "3-4 Days",
     idealFor: "Photographers, Elephant lovers",
     highlights: ["Elephant herds", "Mt. Kilimanjaro backdrop", "Sundowner experiences"],
   },
   {
     title: "Safari & Beach Combo",
-    image: "/images/beach-extension.jpg",
+    image: `${BASE_PATH}/images/beach-extension.jpg`,
     duration: "7-10 Days",
     idealFor: "Honeymooners, Families",
     highlights: ["Maasai Mara game drives", "Diani Beach relaxation", "Water sports"],
@@ -65,7 +68,7 @@ export function SafariPackages() {
             >
               <div className="relative h-56 overflow-hidden">
                 <Image
-                  src={pkg.image || "/placeholder.svg"}
+                  src={pkg.image}
                   alt={pkg.title}
                   fill
                   className="object-cover group-hover:scale-110 group-hover:rotate-2 transition-all duration-700"

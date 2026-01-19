@@ -4,6 +4,9 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { MessageCircle } from "lucide-react"
 
+// Base path for GitHub Pages
+const BASE_PATH = '/Mamba-Safari'
+
 export function HeroSection() {
   const whatsappLink = "https://wa.me/254115882901?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20safari"
 
@@ -19,7 +22,7 @@ export function HeroSection() {
       {/* Background Image with parallax effect */}
       <div className="absolute inset-0 z-0 animate-scale-in">
         <Image
-          src="/images/hero-safari.jpg"
+          src={`${BASE_PATH}/images/hero-safari.jpg`}
           alt="African elephant walking through the golden Kenyan savannah at sunset"
           fill
           className="object-cover scale-105 hover:scale-110 transition-transform duration-[10s] ease-out"

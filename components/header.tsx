@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, MessageCircle, Phone } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+// Base path for GitHub Pages
+const BASE_PATH = '/Mamba-Safari'
+
 const navLinks = [
   { label: "Safaris", href: "#packages" },
   { label: "Gallery", href: "/gallery" },
@@ -121,7 +124,7 @@ export function Header() {
           >
             <div className="relative h-10 md:h-12 w-10 md:w-12 flex-shrink-0 transition-all duration-300 group-hover:rotate-6">
               <Image 
-                src="/images/logo.jpg" 
+                src={`${BASE_PATH}/images/logo.jpg`} 
                 alt="Mamba World Kenya Safaris" 
                 fill
                 className="object-contain rounded"
