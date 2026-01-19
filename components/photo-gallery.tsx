@@ -19,12 +19,6 @@ const galleryImages = [
     label: "Kilimanjaro Under Stars",
   },
   {
-    src: "/images/gallery/03-lions-safari-vehicle.jpg",
-    alt: "Male lion with magnificent mane and lioness standing on dirt road directly in front of beige safari vehicle (Toyota Land Cruiser, license KBU 053K) with tourists observing from open pop-up roof",
-    category: "Wildlife",
-    label: "Lions & Safari Encounter",
-  },
-  {
     src: "/images/gallery/04-rhinoceros-bridge.jpg",
     alt: "White rhinoceros grazing peacefully in lush green grassland with white egret bird nearby, modern elevated railway or highway bridge visible in distant background",
     category: "Wildlife",
