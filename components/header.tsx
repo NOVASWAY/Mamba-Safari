@@ -192,7 +192,7 @@ export function Header() {
               return (
                 <a
                   key={link.label}
-                  href={pathname !== '/' ? `/${link.href}` : link.href}
+                  href={link.href}
                   onClick={(e) => handleNavClick(link.href, e)}
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
@@ -316,7 +316,7 @@ export function Header() {
                 return (
                   <a
                     key={link.label}
-                    href={pathname !== '/' ? `/${link.href}` : link.href}
+                    href={link.href}
                     onClick={(e) => handleNavClick(link.href, e)}
                     className={cn(
                       "px-4 py-3 rounded-lg text-base font-medium text-left transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
