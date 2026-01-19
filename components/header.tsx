@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Safaris", href: "#packages" },
   { label: "Gallery", href: "/gallery" },
   { label: "About", href: "#sustainability" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#inquiry" },
 ]
 
