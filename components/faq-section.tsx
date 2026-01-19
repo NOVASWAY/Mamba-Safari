@@ -44,7 +44,7 @@ export function FAQSection() {
       <div className="container mx-auto px-4 max-w-4xl relative z-10">
         <div className="text-center mb-12 animate-fade-in-up">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 mb-6">
-            <HelpCircle className="w-8 h-8 text-amber-700 dark:text-amber-400" />
+            <HelpCircle className="w-8 h-8 text-amber-700 dark:text-amber-400 animate-icon-pulse" />
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-orange-600 to-amber-700 dark:from-amber-400 dark:via-orange-300 dark:to-amber-400 mb-4 font-bold">
             Frequently Asked Questions

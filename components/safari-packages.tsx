@@ -78,11 +78,11 @@ export function SafariPackages() {
                 
                 <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
+                    <Clock className="w-4 h-4 animate-icon-wiggle" />
                     <span>{pkg.duration}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Users className="w-4 h-4" />
+                    <Users className="w-4 h-4 animate-icon-float" />
                     <span>{pkg.idealFor}</span>
                   </div>
                 </div>

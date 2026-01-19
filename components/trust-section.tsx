@@ -42,7 +42,7 @@ export function TrustSection() {
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <pillar.icon className="w-8 h-8 text-amber-700 dark:text-amber-400" />
+                <pillar.icon className="w-8 h-8 text-amber-700 dark:text-amber-400 animate-icon-float" style={{ animationDelay: `${index * 200}ms` }} />
               </div>
               <h3 className="font-serif text-xl md:text-2xl text-stone-900 dark:text-white mb-3 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">{pillar.title}</h3>
               <p className="text-stone-600 dark:text-stone-400 text-sm md:text-base leading-relaxed">{pillar.description}</p>

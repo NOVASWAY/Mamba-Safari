@@ -52,7 +52,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:text-amber-400 transition-colors duration-300"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-4 h-4 animate-icon-float" />
                   WhatsApp Us
                 </a>
               </li>
@@ -61,16 +61,16 @@ export function Footer() {
                   href={`mailto:${emailAddress}`}
                   className="flex items-center gap-2 hover:text-amber-400 transition-colors duration-300"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-4 h-4 animate-icon-pulse" />
                   <span className="break-all">{emailAddress}</span>
                 </a>
               </li>
               <li className="flex items-center gap-2 hover:text-amber-400 transition-colors duration-300">
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 animate-icon-wiggle" />
                 +254 115 882 901
               </li>
               <li className="flex items-start gap-2 hover:text-amber-400 transition-colors duration-300">
-                <MapPin className="w-4 h-4 mt-0.5" />
+                <MapPin className="w-4 h-4 mt-0.5 animate-icon-float" />
                 <span>Nairobi, Kenya</span>
               </li>
             </ul>

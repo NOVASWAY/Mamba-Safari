@@ -60,7 +60,7 @@ export function HeroSection() {
             className="w-full sm:w-auto border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white hover:bg-white hover:text-stone-900 text-lg px-8 py-6 rounded-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105"
           >
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="mr-2 h-5 w-5" />
+              <MessageCircle className="mr-2 h-5 w-5 animate-icon-float" />
               Chat on WhatsApp
             </a>
           </Button>

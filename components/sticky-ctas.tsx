@@ -44,7 +44,7 @@ export function StickyCTAs() {
           className="flex-1 py-5 border-primary text-primary bg-transparent"
         >
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="mr-2 h-5 w-5" />
+            <MessageCircle className="mr-2 h-5 w-5 animate-icon-pulse" />
             WhatsApp
           </a>
         </Button>
@@ -61,7 +61,7 @@ export function StickyCTAs() {
           aria-label="Chat on WhatsApp"
           title="Chat on WhatsApp"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-6 h-6 animate-icon-float" />
         </a>
 
         {/* Email Floating Icon */}
@@ -71,7 +71,7 @@ export function StickyCTAs() {
           aria-label="Send us an email"
           title="Send us an email"
         >
-          <Mail className="w-6 h-6" />
+          <Mail className="w-6 h-6 animate-icon-pulse" />
         </a>
 
         {/* Phone Floating Icon */}
@@ -81,7 +81,7 @@ export function StickyCTAs() {
           aria-label="Call us"
           title="Call us"
         >
-          <Phone className="w-6 h-6" />
+          <Phone className="w-6 h-6 animate-icon-wiggle" />
         </a>
 
         {/* Plan Safari Floating Button */}

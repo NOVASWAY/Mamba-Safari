@@ -71,7 +71,7 @@ export function InquirySection() {
               className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-5 w-5" />
+                <MessageCircle className="mr-2 h-5 w-5 animate-icon-pulse" />
                 Chat Now on WhatsApp
               </a>
             </Button>
@@ -173,7 +173,7 @@ export function InquirySection() {
 
           <div className="lg:col-span-2 flex flex-col justify-center animate-fade-in-up delay-500">
             <div className="bg-gradient-to-br from-amber-600 to-orange-600 text-white rounded-2xl p-6 md:p-8 text-center shadow-2xl hover:shadow-amber-500/30 transition-all duration-300 hover:scale-105">
-              <MessageCircle className="w-14 h-14 mx-auto mb-4 animate-bounce-subtle" />
+              <MessageCircle className="w-14 h-14 mx-auto mb-4 animate-icon-float" />
               <h3 className="font-serif text-2xl mb-3 font-bold">Prefer to Chat?</h3>
               <p className="text-white/90 mb-6 text-sm md:text-base leading-relaxed">
                 Get instant answers to your questions. Our team is ready to help you plan the perfect safari.

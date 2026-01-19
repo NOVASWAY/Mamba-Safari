@@ -42,7 +42,7 @@ export function SustainabilitySection() {
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-amber-100 dark:from-green-900/30 dark:to-amber-900/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <item.icon className="w-10 h-10 text-amber-700 dark:text-amber-400" />
+                <item.icon className="w-10 h-10 text-amber-700 dark:text-amber-400 animate-icon-pulse" style={{ animationDelay: `${index * 300}ms` }} />
               </div>
               <h3 className="font-serif text-xl md:text-2xl text-stone-900 dark:text-white mb-3 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">{item.title}</h3>
               <p className="text-stone-600 dark:text-stone-400 text-sm md:text-base leading-relaxed">{item.description}</p>
