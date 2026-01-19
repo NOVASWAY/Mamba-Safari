@@ -9,6 +9,8 @@ const nextConfig = {
   // If your repo is username.github.io, you don't need basePath
   // If your repo is username/repo-name, set basePath to '/repo-name'
   basePath: '/Mamba-Safari',
+  // Asset prefix to ensure images and assets load correctly
+  assetPrefix: '/Mamba-Safari',
   // Disable image optimization for static export
   images: {
     unoptimized: true,
