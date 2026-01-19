@@ -30,7 +30,7 @@ export function StickyCTAs() {
 
   return (
     <>
-      {/* Mobile Sticky Bottom Bar */}
+      {/* Mobile Sticky Bottom Bar - Keep this as it won't conflict with chat widget */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border p-3 flex gap-3">
         <Button
           onClick={scrollToInquiry}
@@ -50,50 +50,8 @@ export function StickyCTAs() {
         </Button>
       </div>
 
-      {/* Desktop Floating Icons */}
-      <div className="hidden md:flex fixed right-6 bottom-6 z-50 flex-col gap-4">
-        {/* WhatsApp Floating Icon */}
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] text-white rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
-          aria-label="Chat on WhatsApp"
-          title="Chat on WhatsApp"
-        >
-          <MessageCircle className="w-6 h-6 animate-icon-float" />
-        </a>
-
-        {/* Email Floating Icon */}
-        <a
-          href={`mailto:${emailAddress}`}
-          className="group flex items-center justify-center w-14 h-14 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
-          aria-label="Send us an email"
-          title="Send us an email"
-        >
-          <Mail className="w-6 h-6 animate-icon-pulse" />
-        </a>
-
-        {/* Phone Floating Icon */}
-        <a
-          href={phoneNumber}
-          className="group flex items-center justify-center w-14 h-14 bg-accent hover:bg-accent/90 text-accent-foreground rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl"
-          aria-label="Call us"
-          title="Call us"
-        >
-          <Phone className="w-6 h-6 animate-icon-wiggle" />
-        </a>
-
-        {/* Plan Safari Floating Button */}
-        <button
-          onClick={scrollToInquiry}
-          className="group flex items-center justify-center w-14 h-14 bg-foreground hover:bg-foreground/90 text-background rounded-full shadow-lg transition-all hover:scale-110 hover:shadow-xl font-semibold text-xs"
-          aria-label="Plan My Safari"
-          title="Plan My Safari"
-        >
-          <span className="rotate-[-45deg]">✈</span>
-        </button>
-      </div>
+      {/* Desktop: Removed floating icons to avoid conflict with Chatbase chat widget */}
+      {/* Chat widget will appear in bottom right corner */}
     </>
   )
 }
