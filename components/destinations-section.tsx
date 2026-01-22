@@ -3,40 +3,43 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
+// Base path for GitHub Pages
+const BASE_PATH = '/Mamba-Safari'
+
 const destinations = [
   {
     name: "Maasai Mara National Reserve",
-    image: "/images/maasai-mara.jpg",
+    image: `${BASE_PATH}/images/maasai-mara.jpg`,
     tagline: "Home of the Great Migration",
     description: "Witness the annual wildebeest migration and spot the Big Five in one of Africa's most famous game reserves.",
   },
   {
     name: "Amboseli National Park",
-    image: "/images/amboseli.jpg",
+    image: `${BASE_PATH}/images/amboseli.jpg`,
     tagline: "Elephants & Kilimanjaro",
     description: "Experience large elephant herds against the stunning backdrop of Mount Kilimanjaro.",
   },
   {
     name: "Tsavo National Parks",
-    image: "/images/hero-safari.jpg",
+    image: `${BASE_PATH}/images/hero-safari.jpg`,
     tagline: "The Red Elephants",
     description: "Explore Kenya's largest national park, home to red elephants, diverse wildlife, and dramatic landscapes.",
   },
   {
     name: "Lake Nakuru National Park",
-    image: "/images/beach-extension.jpg",
+    image: `${BASE_PATH}/images/beach-extension.jpg`,
     tagline: "Pink Flamingos & Rhinos",
     description: "Marvel at millions of pink flamingos and spot both black and white rhinos in this birdwatcher's paradise.",
   },
   {
     name: "Samburu National Reserve",
-    image: "/images/maasai-mara.jpg",
+    image: `${BASE_PATH}/images/maasai-mara.jpg`,
     tagline: "The Special Five",
     description: "Discover unique northern species including Grevy's zebra, reticulated giraffe, and gerenuk antelope.",
   },
   {
     name: "Diani Beach",
-    image: "/images/beach-extension.jpg",
+    image: `${BASE_PATH}/images/beach-extension.jpg`,
     tagline: "Tropical Paradise",
     description: "Relax on pristine white sand beaches and enjoy world-class diving and water sports on the Kenyan coast.",
   },
@@ -77,7 +80,7 @@ export function DestinationsSection() {
             >
               <div className="relative h-48 overflow-hidden">
                 <Image
-                  src={dest.image || "/placeholder.svg"}
+                  src={dest.image || `${BASE_PATH}/placeholder.svg`}
                   alt={dest.name}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"

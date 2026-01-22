@@ -57,6 +57,8 @@ export default function RootLayout({
       <body className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
         <Analytics />
+        {/* Chatbase widget loader - trusted third-party service */}
+        {/* CSP policy allows scripts from chatbase.co domain */}
         <script
           dangerouslySetInnerHTML={{
             __html: `

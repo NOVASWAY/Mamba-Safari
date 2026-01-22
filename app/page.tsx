@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { TrustSection } from "@/components/trust-section"
+import { DestinationsSection } from "@/components/destinations-section"
 import { SafariPackages } from "@/components/safari-packages"
 import { CustomSafariCTA } from "@/components/custom-safari-cta"
 import { SustainabilitySection } from "@/components/sustainability-section"
@@ -18,6 +19,7 @@ export default function HomePage() {
       <main className="min-h-screen">
         <HeroSection />
         <TrustSection />
+        <DestinationsSection />
         <section id="packages" className="scroll-mt-20">
           <SafariPackages />
         </section>

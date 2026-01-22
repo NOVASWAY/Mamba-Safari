@@ -1,0 +1,12 @@
+# robots.txt for Mamba World Kenya Safaris
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (if any exist in future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location (update when sitemap is created)
+# Sitemap: https://yourdomain.com/sitemap.xml
+

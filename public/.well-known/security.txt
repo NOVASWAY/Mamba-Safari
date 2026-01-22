@@ -1,0 +1,9 @@
+# Security Policy for Mamba World Kenya Safaris
+
+Contact: mailto:mambaworldkenyasafaris@gmail.com
+Preferred-Languages: en
+Canonical: https://yourdomain.com/.well-known/security.txt
+Expires: 2025-12-31T23:59:59.000Z
+
+# If you discover a security vulnerability, please email us
+# We appreciate responsible disclosure

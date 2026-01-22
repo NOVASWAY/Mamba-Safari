@@ -7,34 +7,54 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { MessageCircle, CheckCircle } from "lucide-react"
+import { MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
+import { validateAndSanitizeFormData } from "@/lib/security"
 
 export function InquirySection() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [errors, setErrors] = useState<string[]>([])
   const whatsappLink = "https://wa.me/254115882901?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20safari"
   const emailAddress = "mambaworldkenyasafaris@gmail.com"
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
+    setErrors([])
     
     const form = e.currentTarget
     const formData = new FormData(form)
-    const name = formData.get("name") as string
-    const email = formData.get("email") as string
-    const country = formData.get("country") as string
-    const dates = formData.get("dates") as string
-    const message = formData.get("message") as string
+    const rawName = formData.get("name") as string | null
+    const rawEmail = formData.get("email") as string | null
+    const rawCountry = formData.get("country") as string | null
+    const rawDates = formData.get("dates") as string | null
+    const rawMessage = formData.get("message") as string | null
 
-    // Create email subject and body
+    // Validate and sanitize form data
+    const validation = validateAndSanitizeFormData(
+      rawName,
+      rawEmail,
+      rawCountry,
+      rawDates,
+      rawMessage
+    )
+
+    if (!validation.isValid || !validation.data) {
+      setErrors(validation.errors)
+      setIsLoading(false)
+      return
+    }
+
+    const { name, email, country, dates, message } = validation.data
+
+    // Create email subject and body (already sanitized)
     const subject = encodeURIComponent(`Safari Inquiry from ${name}`)
     const body = encodeURIComponent(
       `Name: ${name}\n` +
       `Email: ${email}\n` +
       `Country: ${country}\n` +
       `Preferred Travel Dates: ${dates || "Not specified"}\n\n` +
-      `Message:\n${message}`
+      `Message:\n${message || "No message provided"}`
     )
 
     // Open email client with pre-filled form
@@ -108,6 +128,7 @@ export function InquirySection() {
                     name="name"
                     placeholder="John & Jane Smith"
                     required
+                    maxLength={100}
                     className="bg-white dark:bg-stone-800 border-amber-200 dark:border-amber-800 focus:border-amber-500 dark:focus:border-amber-500 text-stone-900 dark:text-white"
                   />
                 </div>
@@ -119,6 +140,7 @@ export function InquirySection() {
                     type="email"
                     placeholder="you@example.com"
                     required
+                    maxLength={254}
                     className="bg-white dark:bg-stone-800 border-amber-200 dark:border-amber-800 focus:border-amber-500 dark:focus:border-amber-500 text-stone-900 dark:text-white"
                   />
                 </div>
@@ -132,6 +154,7 @@ export function InquirySection() {
                     name="country"
                     placeholder="United States"
                     required
+                    maxLength={100}
                     className="bg-white dark:bg-stone-800 border-amber-200 dark:border-amber-800 focus:border-amber-500 dark:focus:border-amber-500 text-stone-900 dark:text-white"
                   />
                 </div>
@@ -141,6 +164,7 @@ export function InquirySection() {
                     id="dates"
                     name="dates"
                     placeholder="e.g., July 2025"
+                    maxLength={50}
                     className="bg-white dark:bg-stone-800 border-amber-200 dark:border-amber-800 focus:border-amber-500 dark:focus:border-amber-500 text-stone-900 dark:text-white"
                   />
                 </div>
@@ -153,9 +177,26 @@ export function InquirySection() {
                   name="message"
                   placeholder="How many travelers? Any specific interests (wildlife, photography, culture)? Special occasions?"
                   rows={4}
+                  maxLength={2000}
                   className="bg-white dark:bg-stone-800 border-amber-200 dark:border-amber-800 focus:border-amber-500 dark:focus:border-amber-500 text-stone-900 dark:text-white resize-none"
                 />
               </div>
+
+              {errors.length > 0 && (
+                <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-red-800 dark:text-red-300 mb-1">Please fix the following errors:</p>
+                      <ul className="text-sm text-red-700 dark:text-red-400 list-disc list-inside space-y-1">
+                        {errors.map((error, index) => (
+                          <li key={index}>{error}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <Button
                 type="submit"
