@@ -69,7 +69,7 @@ export function SafariPackages() {
               <div className="relative h-56 overflow-hidden">
                 <Image
                   src={pkg.image}
-                  alt={pkg.title}
+                  alt={`${pkg.title} - ${pkg.duration} safari package ideal for ${pkg.idealFor}`}
                   fill
                   className="object-cover group-hover:scale-110 group-hover:rotate-2 transition-all duration-700"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

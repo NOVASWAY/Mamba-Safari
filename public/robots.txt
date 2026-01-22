@@ -7,6 +7,6 @@ Allow: /
 # Disallow: /admin/
 # Disallow: /private/
 
-# Sitemap location (update when sitemap is created)
-# Sitemap: https://yourdomain.com/sitemap.xml
+# Sitemap location
+Sitemap: https://yourdomain.com/Mamba-Safari/sitemap.xml
 

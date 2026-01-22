@@ -81,7 +81,7 @@ export function DestinationsSection() {
               <div className="relative h-48 overflow-hidden">
                 <Image
                   src={dest.image || `${BASE_PATH}/placeholder.svg`}
-                  alt={dest.name}
+                  alt={`${dest.name} - ${dest.tagline}. ${dest.description}`}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />

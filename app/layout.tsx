@@ -19,11 +19,25 @@ const sourceSans = Source_Sans_3({
 
 // Base path for GitHub Pages
 const BASE_PATH = '/Mamba-Safari'
+const SITE_URL = 'https://yourdomain.com' // Update with your actual domain
+const SITE_NAME = 'Mamba World Kenya Safaris'
 
 export const metadata: Metadata = {
-  title: 'Mamba World Kenya Safaris | Authentic Eco-Safaris in Kenya',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Mamba World Kenya Safaris | Authentic Eco-Safaris in Kenya',
+    template: '%s | Mamba World Kenya Safaris',
+  },
   description: 'Experience authentic eco-safaris in Kenya with local experts. Responsibly crafted wildlife adventures in Maasai Mara, Amboseli, and beyond. Book your unforgettable safari today.',
-  keywords: ['Kenya safari', 'eco safari', 'Maasai Mara', 'Amboseli', 'wildlife safari', 'Kenya tours', 'African safari'],
+  keywords: ['Kenya safari', 'eco safari', 'Maasai Mara', 'Amboseli', 'wildlife safari', 'Kenya tours', 'African safari', 'safari packages', 'Kenya travel', 'eco-tourism Kenya'],
+  authors: [{ name: 'Mamba World Kenya Safaris' }],
+  creator: 'Mamba World Kenya Safaris',
+  publisher: 'Mamba World Kenya Safaris',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: [
       { url: `${BASE_PATH}/favicon.ico`, sizes: 'any' },
@@ -32,6 +46,43 @@ export const metadata: Metadata = {
     ],
     apple: `${BASE_PATH}/apple-icon.png`,
     shortcut: `${BASE_PATH}/favicon.ico`,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: 'Mamba World Kenya Safaris | Authentic Eco-Safaris in Kenya',
+    description: 'Experience authentic eco-safaris in Kenya with local experts. Responsibly crafted wildlife adventures in Maasai Mara, Amboseli, and beyond.',
+    images: [
+      {
+        url: `${SITE_URL}${BASE_PATH}/images/hero-safari.jpg`,
+        width: 1920,
+        height: 1080,
+        alt: 'African elephant walking through the golden Kenyan savannah at sunset',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mamba World Kenya Safaris | Authentic Eco-Safaris in Kenya',
+    description: 'Experience authentic eco-safaris in Kenya with local experts. Responsibly crafted wildlife adventures in Maasai Mara, Amboseli, and beyond.',
+    images: [`${SITE_URL}${BASE_PATH}/images/hero-safari.jpg`],
+    creator: '@mambasafaris', // Update with your Twitter handle if available
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
   },
   generator: 'v0.app',
   other: {
@@ -52,8 +103,43 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Structured data for business/organization
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TravelAgency',
+    name: 'Mamba World Kenya Safaris',
+    description: 'Authentic eco-safaris in Kenya with local experts. Responsibly crafted wildlife adventures.',
+    url: SITE_URL,
+    logo: `${SITE_URL}${BASE_PATH}/logo.svg`,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+254-115-882-901',
+      contactType: 'Customer Service',
+      email: 'mambaworldkenyasafaris@gmail.com',
+      availableLanguage: ['English'],
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'KE',
+      addressLocality: 'Kenya',
+    },
+    sameAs: [
+      // Add social media links when available
+      // 'https://www.facebook.com/...',
+      // 'https://www.instagram.com/...',
+    ],
+  }
+
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+      </head>
       <body className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
         <Analytics />
