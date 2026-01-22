@@ -73,7 +73,8 @@ export function Header() {
     setIsMobileMenuOpen(false)
     
     if (href.startsWith("/")) {
-      // Page navigation - let Next.js Link handle it naturally
+      // For page navigation, ensure proper navigation
+      // Don't prevent default - let Link handle it
       return
     }
     
@@ -81,9 +82,10 @@ export function Header() {
     e?.preventDefault()
     
     // If not on home page, navigate to home first, then scroll
-    if (pathname !== '/' && pathname !== `${BASE_PATH}/`) {
-      // Navigate to home page with hash, then scroll after page loads
-      window.location.href = `${BASE_PATH}/${href}`
+    if (normalizedPathname !== '/' && normalizedPathname !== '') {
+      // Navigate to home page with hash
+      const fullPath = `${BASE_PATH}/${href}`
+      window.location.href = fullPath
       return
     }
     
@@ -151,10 +153,14 @@ export function Header() {
           {/* Desktop Navigation with smooth indicators */}
           <nav className="hidden md:flex items-center gap-2">
             {/* Always show Home link */}
-            <Link
+            <a
               href="/"
+              onClick={(e) => {
+                e.preventDefault()
+                window.location.href = `${BASE_PATH}/`
+              }}
               className={cn(
-                "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group",
+                "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
                 isScrolled
                   ? "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                   : "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30",
@@ -168,18 +174,28 @@ export function Header() {
                   isHomePage ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                 )}
               />
-            </Link>
+            </a>
             
             {navLinks.map((link) => {
               const isActive = isLinkActive(link.href)
               
               if (link.href.startsWith("/")) {
+                // For static export, use direct navigation
+                const handlePageClick = (e: React.MouseEvent) => {
+                  e.preventDefault()
+                  setIsMobileMenuOpen(false)
+                  const targetPath = `${BASE_PATH}${link.href}${link.href.endsWith('/') ? '' : '/'}`
+                  // Direct navigation for static export
+                  window.location.href = targetPath
+                }
+                
                 return (
-                  <Link
+                  <a
                     key={link.label}
                     href={link.href}
+                    onClick={handlePageClick}
                     className={cn(
-                      "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group",
+                      "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
                       isScrolled
                         ? "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                         : "text-stone-700 dark:text-stone-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30",
@@ -193,7 +209,7 @@ export function Header() {
                         isActive ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                       )}
                     />
-                  </Link>
+                  </a>
                 )
               }
               
@@ -285,39 +301,51 @@ export function Header() {
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col gap-2">
               {/* Always show Home link in mobile menu */}
-              <Link
+              <a
                 href="/"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsMobileMenuOpen(false)
+                  window.location.href = `${BASE_PATH}/`
+                }}
                 className={cn(
-                  "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2",
+                  "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
                   isHomePage
                     ? "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/50 dark:to-orange-950/50 text-amber-700 dark:text-amber-400 shadow-md"
                     : "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                 )}
-                onClick={() => setIsMobileMenuOpen(false)}
                 style={{ animationDelay: '0ms' }}
               >
                 Home
-              </Link>
+              </a>
               
               {navLinks.map((link, index) => {
                 const isActive = isLinkActive(link.href)
                 
                 if (link.href.startsWith("/")) {
+                  const handleMobilePageClick = (e: React.MouseEvent) => {
+                    e.preventDefault()
+                    setIsMobileMenuOpen(false)
+                    const targetPath = `${BASE_PATH}${link.href}${link.href.endsWith('/') ? '' : '/'}`
+                    // Direct navigation for static export
+                    window.location.href = targetPath
+                  }
+                  
                   return (
-                    <Link
+                    <a
                       key={link.label}
                       href={link.href}
+                      onClick={handleMobilePageClick}
                       className={cn(
-                        "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2",
+                        "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
                         isActive
                           ? "bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-950/50 dark:to-orange-950/50 text-amber-700 dark:text-amber-400 shadow-md"
                           : "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                       )}
-                      onClick={() => setIsMobileMenuOpen(false)}
                       style={{ animationDelay: `${(index + 1) * 50}ms` }}
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   )
                 }
                 
