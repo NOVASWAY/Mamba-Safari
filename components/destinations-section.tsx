@@ -28,13 +28,13 @@ const destinations = [
   },
   {
     name: "Lake Nakuru National Park",
-    image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=1200&h=800&fit=crop&q=80",
+    image: `${BASE_PATH}/images/gallery/04-rhinoceros-bridge.jpg`,
     tagline: "Pink Flamingos & Rhinos",
     description: "Marvel at millions of pink flamingos and spot both black and white rhinos in this birdwatcher's paradise.",
   },
   {
     name: "Samburu National Reserve",
-    image: `${BASE_PATH}/images/maasai-mara.jpg`,
+    image: `${BASE_PATH}/images/gallery/03-lions-safari-vehicle.jpg`,
     tagline: "The Special Five",
     description: "Discover unique northern species including Grevy's zebra, reticulated giraffe, and gerenuk antelope.",
   },
@@ -63,7 +63,7 @@ export function DestinationsSection() {
       {/* Decorative background elements */}
       <div className="absolute top-20 right-10 w-96 h-96 bg-amber-200/5 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-20 left-10 w-80 h-80 bg-orange-200/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12 animate-fade-in-up">
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-orange-600 to-amber-700 dark:from-amber-400 dark:via-orange-300 dark:to-amber-400 mb-4 font-bold">
@@ -104,7 +104,7 @@ export function DestinationsSection() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <h3 className="font-serif text-xl md:text-2xl text-stone-900 dark:text-white mb-2 font-bold group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
                   {dest.name}
