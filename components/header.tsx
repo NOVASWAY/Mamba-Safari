@@ -125,8 +125,8 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo with smooth animation */}
-          <Link
-            href="/"
+          <a
+            href={`${BASE_PATH}/`}
             className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105"
             onClick={(e) => {
               if (pathname === '/' || pathname === '/Mamba-Safari' || pathname === '/Mamba-Safari/') {
@@ -154,13 +154,13 @@ export function Header() {
             >
               Mamba World
             </span>
-          </Link>
+          </a>
 
           {/* Desktop Navigation with smooth indicators */}
           <nav className="hidden md:flex items-center gap-2">
             {/* Always show Home link */}
-            <Link
-              href="/"
+            <a
+              href={`${BASE_PATH}/`}
               onClick={(e) => {
                 if (pathname === '/' || pathname === '/Mamba-Safari' || pathname === '/Mamba-Safari/') {
                   e.preventDefault()
@@ -182,16 +182,16 @@ export function Header() {
                   isHomePage ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                 )}
               />
-            </Link>
+            </a>
 
             {navLinks.map((link) => {
               const isActive = isLinkActive(link.href)
 
               if (link.href.startsWith("/")) {
                 return (
-                  <Link
+                  <a
                     key={link.label}
-                    href={link.href}
+                    href={`${BASE_PATH}${link.href}`}
                     className={cn(
                       "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
                       isScrolled
@@ -207,7 +207,7 @@ export function Header() {
                         isActive ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                       )}
                     />
-                  </Link>
+                  </a>
                 )
               }
 
@@ -299,8 +299,8 @@ export function Header() {
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col gap-2">
               {/* Always show Home link in mobile menu */}
-              <Link
-                href="/"
+              <a
+                href={`${BASE_PATH}/`}
                 onClick={(e) => {
                   setIsMobileMenuOpen(false)
                   if (pathname === '/' || pathname === '/Mamba-Safari' || pathname === '/Mamba-Safari/') {
@@ -317,16 +317,16 @@ export function Header() {
                 style={{ animationDelay: '0ms' }}
               >
                 Home
-              </Link>
+              </a>
 
               {navLinks.map((link, index) => {
                 const isActive = isLinkActive(link.href)
 
                 if (link.href.startsWith("/")) {
                   return (
-                    <Link
+                    <a
                       key={link.label}
-                      href={link.href}
+                      href={`${BASE_PATH}${link.href}`}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
                         "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
@@ -337,7 +337,7 @@ export function Header() {
                       style={{ animationDelay: `${(index + 1) * 50}ms` }}
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   )
                 }
 
