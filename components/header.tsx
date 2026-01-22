@@ -32,7 +32,7 @@ export function Header() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
-      
+
       // Detect active section for smooth navigation indicator
       const sections = navLinks.map(link => link.href.replace('#', '')).filter(href => !href.startsWith('/'))
       for (const section of sections) {
@@ -46,7 +46,7 @@ export function Header() {
         }
       }
     }
-    
+
     // Handle hash navigation when arriving from another page
     if (typeof window !== 'undefined' && window.location.hash) {
       setTimeout(() => {
@@ -63,7 +63,7 @@ export function Header() {
         }
       }, 100)
     }
-    
+
     handleScroll() // Call on mount
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
@@ -71,16 +71,16 @@ export function Header() {
 
   const handleNavClick = (href: string, e?: React.MouseEvent) => {
     setIsMobileMenuOpen(false)
-    
+
     if (href.startsWith("/")) {
       // For page navigation, ensure proper navigation
       // Don't prevent default - let Link handle it
       return
     }
-    
+
     // Anchor link navigation
     e?.preventDefault()
-    
+
     // If not on home page, navigate to home first, then scroll
     if (normalizedPathname !== '/' && normalizedPathname !== '') {
       // Navigate to home page with hash
@@ -88,7 +88,7 @@ export function Header() {
       window.location.href = fullPath
       return
     }
-    
+
     // Already on home page, just scroll
     const element = document.querySelector(href)
     if (element) {
@@ -125,14 +125,20 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo with smooth animation */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="flex items-center gap-2 group transition-transform duration-300 hover:scale-105"
+            onClick={(e) => {
+              if (pathname === '/' || pathname === '/Mamba-Safari' || pathname === '/Mamba-Safari/') {
+                e.preventDefault()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }
+            }}
           >
             <div className="relative h-10 md:h-12 w-10 md:w-12 flex-shrink-0 transition-all duration-300 group-hover:rotate-6">
-              <Image 
-                src={`${BASE_PATH}/images/logo.jpg`} 
-                alt="Mamba World Kenya Safaris" 
+              <Image
+                src={`${BASE_PATH}/images/logo.jpg`}
+                alt="Mamba World Kenya Safaris"
                 fill
                 className="object-contain rounded"
                 priority
@@ -153,11 +159,13 @@ export function Header() {
           {/* Desktop Navigation with smooth indicators */}
           <nav className="hidden md:flex items-center gap-2">
             {/* Always show Home link */}
-            <a
+            <Link
               href="/"
               onClick={(e) => {
-                e.preventDefault()
-                window.location.href = `${BASE_PATH}/`
+                if (pathname === '/' || pathname === '/Mamba-Safari' || pathname === '/Mamba-Safari/') {
+                  e.preventDefault()
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
               }}
               className={cn(
                 "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
@@ -168,32 +176,22 @@ export function Header() {
               )}
             >
               Home
-              <span 
+              <span
                 className={cn(
                   "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
                   isHomePage ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                 )}
               />
-            </a>
-            
+            </Link>
+
             {navLinks.map((link) => {
               const isActive = isLinkActive(link.href)
-              
+
               if (link.href.startsWith("/")) {
-                // For static export, use direct navigation
-                const handlePageClick = (e: React.MouseEvent) => {
-                  e.preventDefault()
-                  setIsMobileMenuOpen(false)
-                  const targetPath = `${BASE_PATH}${link.href}${link.href.endsWith('/') ? '' : '/'}`
-                  // Direct navigation for static export
-                  window.location.href = targetPath
-                }
-                
                 return (
-                  <a
+                  <Link
                     key={link.label}
                     href={link.href}
-                    onClick={handlePageClick}
                     className={cn(
                       "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out group cursor-pointer",
                       isScrolled
@@ -203,16 +201,16 @@ export function Header() {
                     )}
                   >
                     {link.label}
-                    <span 
+                    <span
                       className={cn(
                         "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
                         isActive ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
                       )}
                     />
-                  </a>
+                  </Link>
                 )
               }
-              
+
               return (
                 <a
                   key={link.label}
@@ -227,7 +225,7 @@ export function Header() {
                   )}
                 >
                   {link.label}
-                  <span 
+                  <span
                     className={cn(
                       "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent transition-all duration-300 ease-in-out rounded-full",
                       isActive ? "w-3/4 opacity-100" : "w-0 opacity-0 group-hover:w-3/4 group-hover:opacity-100"
@@ -270,8 +268,8 @@ export function Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={cn(
               "md:hidden p-2 rounded-lg transition-all duration-300",
-              isScrolled 
-                ? "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30" 
+              isScrolled
+                ? "text-stone-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                 : "text-white hover:bg-white/10"
             )}
             aria-label="Toggle menu"
@@ -290,23 +288,25 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu with smooth slide animation */}
+      {/* Mobile Menu with smooth slide animation and scrolling */}
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-500 ease-in-out",
-          isMobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+          isMobileMenuOpen ? "max-h-[85vh] opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <nav className="bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl border-t border-amber-200/20 dark:border-amber-900/20 shadow-2xl">
+        <nav className="bg-white/98 dark:bg-stone-950/98 backdrop-blur-xl border-t border-amber-200/20 dark:border-amber-900/20 shadow-2xl max-h-[80vh] overflow-y-auto">
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col gap-2">
               {/* Always show Home link in mobile menu */}
-              <a
+              <Link
                 href="/"
                 onClick={(e) => {
-                  e.preventDefault()
                   setIsMobileMenuOpen(false)
-                  window.location.href = `${BASE_PATH}/`
+                  if (pathname === '/' || pathname === '/Mamba-Safari' || pathname === '/Mamba-Safari/') {
+                    e.preventDefault()
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
                 }}
                 className={cn(
                   "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
@@ -317,25 +317,17 @@ export function Header() {
                 style={{ animationDelay: '0ms' }}
               >
                 Home
-              </a>
-              
+              </Link>
+
               {navLinks.map((link, index) => {
                 const isActive = isLinkActive(link.href)
-                
+
                 if (link.href.startsWith("/")) {
-                  const handleMobilePageClick = (e: React.MouseEvent) => {
-                    e.preventDefault()
-                    setIsMobileMenuOpen(false)
-                    const targetPath = `${BASE_PATH}${link.href}${link.href.endsWith('/') ? '' : '/'}`
-                    // Direct navigation for static export
-                    window.location.href = targetPath
-                  }
-                  
                   return (
-                    <a
+                    <Link
                       key={link.label}
                       href={link.href}
-                      onClick={handleMobilePageClick}
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
                         "px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform hover:translate-x-2 cursor-pointer",
                         isActive
@@ -345,10 +337,10 @@ export function Header() {
                       style={{ animationDelay: `${(index + 1) * 50}ms` }}
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   )
                 }
-                
+
                 return (
                   <a
                     key={link.label}
@@ -367,9 +359,9 @@ export function Header() {
                 )
               })}
             </div>
-            
+
             {/* Mobile Quick Actions */}
-            <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-amber-200/30 dark:border-amber-900/30">
+            <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-amber-200/30 dark:border-amber-900/30 pb-6">
               <Button
                 asChild
                 variant="outline"
