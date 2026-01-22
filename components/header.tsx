@@ -25,7 +25,9 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const whatsappLink = "https://wa.me/254115882901?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20safari"
-  const isHomePage = pathname === '/'
+  // Normalize pathname for home page check (remove basePath and trailing slash)
+  const normalizedPathname = pathname.replace(BASE_PATH, '') || '/'
+  const isHomePage = normalizedPathname === '/' || normalizedPathname === ''
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,9 +81,9 @@ export function Header() {
     e?.preventDefault()
     
     // If not on home page, navigate to home first, then scroll
-    if (pathname !== '/') {
-      // Navigate to home page with hash
-      window.location.href = `/${href}`
+    if (pathname !== '/' && pathname !== `${BASE_PATH}/`) {
+      // Navigate to home page with hash, then scroll after page loads
+      window.location.href = `${BASE_PATH}/${href}`
       return
     }
     
@@ -101,7 +103,10 @@ export function Header() {
 
   const isLinkActive = (href: string) => {
     if (href.startsWith('/')) {
-      return pathname === href
+      // Normalize pathname for comparison (remove basePath and trailing slash)
+      const normalizedPathname = pathname.replace(BASE_PATH, '') || '/'
+      const normalizedHref = href === '/' ? '/' : href.replace(/\/$/, '')
+      return normalizedPathname === normalizedHref || normalizedPathname === `${normalizedHref}/`
     }
     return activeSection === href.replace('#', '')
   }

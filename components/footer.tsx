@@ -1,8 +1,26 @@
+"use client"
+
 import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+const BASE_PATH = '/Mamba-Safari'
 
 export function Footer() {
   const whatsappLink = "https://wa.me/254115882901?text=Hello%2C%20I%27m%20interested%20in%20booking%20a%20safari"
   const emailAddress = "mambaworldkenyasafaris@gmail.com"
+  const pathname = usePathname()
+  const normalizedPathname = pathname?.replace(BASE_PATH, '') || '/'
+  const isHomePage = normalizedPathname === '/' || normalizedPathname === ''
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    if (!isHomePage) {
+      e.preventDefault()
+      // Navigate to home page with hash
+      window.location.href = `${BASE_PATH}/${hash}`
+    }
+    // If on home page, let the default anchor behavior work
+  }
 
   return (
     <footer className="bg-gradient-to-b from-stone-900 via-stone-950 to-black text-white py-12 md:py-16 relative overflow-hidden">
@@ -23,10 +41,41 @@ export function Footer() {
           <div className="animate-fade-in-up delay-200">
             <h4 className="font-semibold mb-4 text-amber-400 text-lg">Quick Links</h4>
             <ul className="space-y-2 text-sm text-white/80">
-              <li><a href="#packages" className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block">Safari Packages</a></li>
-              <li><a href="#sustainability" className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block">Our Commitment</a></li>
-              <li><a href="#inquiry" className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block">Contact Us</a></li>
-              <li><a href="/gallery" className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block">Gallery</a></li>
+              <li>
+                <a 
+                  href="#packages" 
+                  onClick={(e) => handleAnchorClick(e, '#packages')}
+                  className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block"
+                >
+                  Safari Packages
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#sustainability" 
+                  onClick={(e) => handleAnchorClick(e, '#sustainability')}
+                  className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block"
+                >
+                  Our Commitment
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#inquiry" 
+                  onClick={(e) => handleAnchorClick(e, '#inquiry')}
+                  className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block"
+                >
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <Link 
+                  href="/gallery" 
+                  className="hover:text-amber-400 transition-colors duration-300 hover:translate-x-1 inline-block"
+                >
+                  Gallery
+                </Link>
+              </li>
             </ul>
           </div>
 
