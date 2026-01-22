@@ -28,13 +28,13 @@ const destinations = [
   },
   {
     name: "Lake Nakuru National Park",
-    image: `${BASE_PATH}/images/gallery/04-rhinoceros-bridge.jpg`,
+    image: `${BASE_PATH}/images/nakuru-flamingos.jpg`,
     tagline: "Pink Flamingos & Rhinos",
     description: "Marvel at millions of pink flamingos and spot both black and white rhinos in this birdwatcher's paradise.",
   },
   {
     name: "Samburu National Reserve",
-    image: `${BASE_PATH}/images/gallery/03-lions-safari-vehicle.jpg`,
+    image: `${BASE_PATH}/images/samburu-wildlife.jpg`,
     tagline: "The Special Five",
     description: "Discover unique northern species including Grevy's zebra, reticulated giraffe, and gerenuk antelope.",
   },
